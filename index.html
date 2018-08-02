@@ -8,10 +8,21 @@
 </head>
 
 <body>
-    <div>
-        这是一次动画测试。
+    <div class="loading-page" v-bind:class="[{inactive:!isActive},{loadingPageFadeOut:isLoad}]">
+        <div class="rect-loading">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+        </div>
     </div>
 
+    <div class="main-page" v-bind:class="{inactive:isNotActive}">
+        这是一次动画测试。
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
