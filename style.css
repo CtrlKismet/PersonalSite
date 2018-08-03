@@ -1,3 +1,6 @@
+/*========================================================================*/
+
+
 /*
     gloal settings
 */
@@ -20,6 +23,9 @@ body {
     line-height: 1.428571429;
     color: #333333;
 }
+
+
+/*========================================================================*/
 
 
 /*
@@ -50,6 +56,9 @@ body {
         overflow-x: hidden;
     }
 }
+
+
+/*========================================================================*/
 
 
 /*
@@ -99,23 +108,33 @@ body {
 
 .rect-loading .rect1 {
     animation-delay: -1.4s;
+    -webkit-animation-delay: -1.4s;
 }
 
 .rect-loading .rect2 {
     animation-delay: -1.3s;
+    -webkit-animation-delay: -1.3s;
 }
 
 .rect-loading .rect3 {
     animation-delay: -1.2s;
+    -webkit-animation-delay: -1.2s;
 }
 
 .rect-loading .rect4 {
     animation-delay: -1.1s;
+    -webkit-animation-delay: -1.1s;
 }
 
 .rect-loading .rect5 {
     animation-delay: -1.0s;
+    -webkit-animation-delay: -1.0s;
 }
+
+
+/*
+    animation for rectangle scaling
+*/
 
 @keyframes rectScale {
     0%,
@@ -128,6 +147,23 @@ body {
         -webkit-transform: scaleY(0.3);
     }
 }
+
+@-webkit-keyframes rectScale {
+    0%,
+    100% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
+    50% {
+        transform: scaleY(0.3);
+        -webkit-transform: scaleY(0.3);
+    }
+}
+
+
+/*
+    animation for turning background color
+*/
 
 @keyframes colorTurn {
     0% {
@@ -145,6 +181,94 @@ body {
     }
 }
 
+@-webkit-keyframes colorTurn {
+    0% {
+        background-color: lightblue;
+    }
+    40% {
+        background-color: #76DAFF;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        background-color: lightblue;
+        opacity: 0;
+    }
+}
+
+.active {
+    display: block !important;
+}
+
 .inactive {
-    display: none;
+    display: none !important;
+}
+
+
+/*========================================================================*/
+
+
+/*
+    main page setting
+*/
+
+.main-page {
+    opacity: 0;
+}
+
+.fadeInAni {
+    animation: forwards fadeIn 3.2s linear 1;
+    /* -webkit-animation: fadeIn 0.7s linear 1; */
+    /* -webkit-animation-delay: -2.3s; */
+}
+
+@keyframes fadeIn {
+    0%,
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+/*========================================================================*/
+
+
+/*
+    head navigation bar setting
+*/
+
+.head-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 45px;
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0 1px 8px black;
+}
+
+
+/*========================================================================*/
+
+
+/*
+    main window setting
+*/
+
+.main-window {
+    margin: 50px 20px;
 }

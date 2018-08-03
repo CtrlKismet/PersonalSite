@@ -18,8 +18,11 @@
         </div>
     </div>
 
-    <div class="main-page" v-bind:class="{inactive:isNotActive}">
-        这是一次动画测试。
+    <div class="main-page" v-bind:class="[{inactive:isNotActive},{fadeInAni:!isNotActive}]">
+        <ul class="head-bar">
+            这是一次动画测试。
+        </ul>
+        <div class="main-window">21121</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./script.js"></script>
