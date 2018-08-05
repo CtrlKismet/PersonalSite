@@ -4,11 +4,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Welcome to CtrlKismet's web!</title>
+    
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <div class="loading-page" v-bind:class="[{inactive:!isActive},{loadingPageFadeOut:isLoad}]">
+    <div class="loading-page" v-show="isActive" v-bind:class="{loadingPageFadeOut:isLoad}">
         <div class="rect-loading">
             <div class="rect1"></div>
             <div class="rect2"></div>
@@ -18,10 +20,10 @@
         </div>
     </div>
 
-    <div class="main-page" v-bind:class="[{inactive:isNotActive},{fadeInAni:!isNotActive}]">
-        <ul class="head-bar">
-            这是一次动画测试。
-        </ul>
+    <div class="main-page" v-show="!isNotActive" v-bind:class="{fadeInAni:!isNotActive}">
+        <nav class="head-bar">
+           
+        </nav>
         <div class="main-window">21121</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

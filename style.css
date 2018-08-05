@@ -1,6 +1,5 @@
 /*========================================================================*/
 
-
 /*
     gloal settings
 */
@@ -22,44 +21,29 @@ body {
     font-size: 25px;
     line-height: 1.428571429;
     color: #333333;
+    background-image: url('./resources/bg4.jpg');
+    overflow: hidden;
 }
 
-
 /*========================================================================*/
-
 
 /*
     backgroud image settings
 */
-
-
-/*
-    if the width of the device is more than 768px, then it's identified as a desktop device.
-*/
-
-@media (min-width:768px) {
-    html {
-        background-image: url('./resources/bg4.jpg');
-        overflow: hidden;
-    }
-}
-
 
 /*
     the width of the device is less than 768px, then it's identified as a portable device.
 */
 
 @media (max-width:768px) {
-    html {
+    body {
         background-position: bottom;
         background-image: url('./resources/bg3.jpg');
-        overflow-x: hidden;
+        overflow: hidden auto;
     }
 }
 
-
 /*========================================================================*/
-
 
 /*
     loading page settings
@@ -84,7 +68,6 @@ body {
     width: 128px;
 }
 
-
 /*portable device*/
 
 @media (max-width:768px) {
@@ -102,7 +85,6 @@ body {
     -webkit-animation: rectScale 1.5s ease-in-out infinite;
     box-shadow: 10px 10px 5px lightsteelblue;
 }
-
 
 /* cubic-bezier(0,1,1,0) */
 
@@ -131,7 +113,6 @@ body {
     -webkit-animation-delay: -1.0s;
 }
 
-
 /*
     animation for rectangle scaling
 */
@@ -159,7 +140,6 @@ body {
         -webkit-transform: scaleY(0.3);
     }
 }
-
 
 /*
     animation for turning background color
@@ -197,17 +177,7 @@ body {
     }
 }
 
-.active {
-    display: block !important;
-}
-
-.inactive {
-    display: none !important;
-}
-
-
 /*========================================================================*/
-
 
 /*
     main page setting
@@ -219,8 +189,7 @@ body {
 
 .fadeInAni {
     animation: forwards fadeIn 3.2s linear 1;
-    /* -webkit-animation: fadeIn 0.7s linear 1; */
-    /* -webkit-animation-delay: -2.3s; */
+    -webkit-animation: forwards fadeIn 3.2s linear 1;
 }
 
 @keyframes fadeIn {
@@ -242,9 +211,7 @@ body {
     }
 }
 
-
 /*========================================================================*/
-
 
 /*
     head navigation bar setting
@@ -255,15 +222,15 @@ body {
     top: 0;
     width: 100%;
     height: 45px;
-    background-color: white;
-    border-bottom-left-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-bottom-left-radius: 2px;
     border-bottom-right-radius: 5px;
-    box-shadow: 0 1px 8px black;
+    border: 1px solid transparent;
 }
 
-
 /*========================================================================*/
-
 
 /*
     main window setting

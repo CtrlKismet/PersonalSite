@@ -26,7 +26,7 @@ function loading_page_fadeOut() {
 }
 
 window.onload = function() {
-    this.setTimeout("loading_page_fadeOut()", 3000);
+    // this.setTimeout("loading_page_fadeOut()", 3000);
     // loading_page_fadeOut();
-    // loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
+    loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
 }
