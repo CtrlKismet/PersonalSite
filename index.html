@@ -4,9 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Welcome to CtrlKismet's web!</title>
-    
+
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
+    <link href="./style.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -22,9 +22,19 @@
 
     <div class="main-page" v-show="!isNotActive" v-bind:class="{fadeInAni:!isNotActive}">
         <nav class="head-bar">
-           
+            <a class="welcome-text" href="#" title="o(*￣3￣)o">｡◕ᴗ◕｡</a>
+            <div class="nav-search">
+                <input type="text" placeholder="Search" />
+                <button>
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </div>
         </nav>
-        <div class="main-window">21121</div>
+        <div class="main-window">
+            <div class="main-text">
+                我是主要内容
+            </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./script.js"></script>

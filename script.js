@@ -4,14 +4,14 @@ let loading_page = new Vue({
         isActive: true,
         isLoad: false
     }
-})
+});
 
 let main_page = new Vue({
     el: ".main-page",
     data: {
         isNotActive: true
     }
-})
+});
 
 function loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_() {
     loading_page.isLoad = true;
@@ -29,4 +29,4 @@ window.onload = function() {
     // this.setTimeout("loading_page_fadeOut()", 3000);
     // loading_page_fadeOut();
     loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
-}
+};
