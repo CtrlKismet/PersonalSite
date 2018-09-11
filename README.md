@@ -21,9 +21,11 @@
 }
 ```
 
-当设置为`display:block;`之后，`animation`才会被触发。
+当设置为`display:block;`之后，`animation`才会被触发。(?)
 
 设置`animation-fill-mode:forwards`之后能保留动画效果。
+
+`transition: property time;`property属性可以选择填写all，这样可以使所有变化属性拥有动画。
 
 ### javascript 部分
 

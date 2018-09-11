@@ -10,10 +10,31 @@
 </head>
 
 <body>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">@</span>
-        <input type="text" placeholder="Username">
+    <div class="page" id="app">
+        <div class="main-window">
+            <div class="main-text">
+                我是主要内容{{message}}
+                <input v-model="message">
+            </div>
+            <button @click="clear">clear</button>
+        </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        
+        var headbar_search = new Vue({
+            el: '#app',
+            data: {
+                message: '123'
+            },
+            methods: {
+                clear:function(){
+                    headbar_search.message="";
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

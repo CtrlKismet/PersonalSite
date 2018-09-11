@@ -211,7 +211,31 @@ button:focus {
 }
 
 .main-text {
-    height: 500px;
+    overflow-y:auto;
+    max-height: -webkit-fill-available;
+    padding: 10px 15px;
+    height: 900px;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.6);
+}
+
+.backup-img > img{
+    width: 20%;
+    transition: all 1s;
+}
+
+.backup-img > img:hover{
+    width: 80%;
+    transform: translateX(10%);
+    transition: all 1s;
+    /* animation: forwards ImgScale 1s linear 1; */
+}
+
+@keyframes ImgScale {
+    0% {
+        width: 20%;
+    }
+    100% {
+        width:80%;
+    }
 }

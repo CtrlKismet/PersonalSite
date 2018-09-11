@@ -6,7 +6,7 @@
     <title>Welcome to CtrlKismet's web!</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./style.css" rel="stylesheet" >
+    <link href="./style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,20 +22,27 @@
 
     <div class="main-page" v-show="!isNotActive" v-bind:class="{fadeInAni:!isNotActive}">
         <nav class="head-bar">
-            <a class="welcome-text" href="#" title="o(*￣3￣)o">｡◕ᴗ◕｡</a>
+            <a class="welcome-text" href="" title="o(*￣3￣)o">｡◕ᴗ◕｡</a>
             <div class="nav-search">
-                <input type="text" placeholder="Search" />
+                <input type="text" placeholder="Search" v-model="message" @keydown.enter="get_search" />
                 <button>
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <a :href="'https://www.baidu.com/s?wd='+message" target="_blank" id="link_to_baidu">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </a>
                 </button>
             </div>
         </nav>
         <div class="main-window">
             <div class="main-text">
-                我是主要内容
+                <p>主要内容</p>
+                <div class="backup-img">
+                    <img src="./images/backupBG.jpg" />
+                </div>
+
             </div>
         </div>
     </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="./script.js"></script>
 </body>
