@@ -22,32 +22,36 @@
 
     <div class="main-page" v-show="!isNotActive" v-bind:class="{fadeInAni:!isNotActive}">
         <nav class="head-bar">
-            <div><a class="welcome-text" href="" title="o(*￣3￣)o">｡◕ᴗ◕｡</a></div>
-            <div>
-                <ul>
-                    <li>
-                        <div class="nav-search">
-                            <input type="text" placeholder="Search" v-model="message" @keydown.enter="get_search" />
-                            <button>
-                                <a :href="'https://www.baidu.com/s?wd='+message" target="_blank" id="link_to_baidu">
-                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                </a>
-                            </button>
-                        </div>
-                    </li>
-                    <li><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></li>
+            <div class="fluid">
+                <div><a class="welcome-text left-side" href="" title="o(*￣3￣)o">｡◕ᴗ◕｡</a></div>
+                <div>
+                    <ul class="right-side">
+                        <li>
+                            <div class="nav-search">
+                                <input type="text" placeholder="Search" v-model="message" @keydown.enter="get_search" />
+                                <button>
+                                    <a :href="'https://www.baidu.com/s?wd='+message" target="_blank" id="link_to_baidu">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </a>
+                                </button>
+                            </div>
+                        </li>
+                        <li id="bg-dropdown">
+                            <span class="glyphicon glyphicon-heart" aria-hidden="true" @click="dropdown"></span>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </nav>
-        <div class="gray-bg" v-bind:class="{fadeIn:activeGray}"></div>
+        <div v-bind:class="{dropdownTrans:activeDropdownBG}" id="bg-dropdown-menu" >
+            <img class="" src="./images/backupBG.jpg" @click="scale" v-bind:class="[{ScaletoCenter:activeGray},{dropdownTrans:activeDropdownBG}]" />
+            <button v-bind:class="{dropdownTrans:activeDropdownBG}"  class="btn-primary"><span class="glyphicon glyphicon-ok "></span></button>
+        </div>
+        <div class="gray-bg" @click="scale" v-bind:class="{fadeIn:activeGray}"></div>
         <div class="main-window">
             <div class="main-text">
                 <div>
-                    <div class="backup-img">
-                        <img src="./images/backupBG.jpg" @click="scale" v-bind:class="{ScaletoCenter:activeGray}" />
-                    </div>
-                    <button v-show="!activeGray">change</button>
                 </div>
             </div>
         </div>

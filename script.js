@@ -12,7 +12,7 @@ let main_page = new Vue({
         isNotActive: true,
         message: "",
         activeGray:false,
-        ZIndex:1
+        activeDropdownBG:false
     },
     methods: {
         get_search: function () {
@@ -25,8 +25,10 @@ let main_page = new Vue({
         },
         scale:function () {
             main_page.activeGray=!main_page.activeGray;
-            console.log("mouseenter");
-        }
+        },
+        dropdown:function () {
+            main_page.activeDropdownBG=!main_page.activeDropdownBG;
+          }
     }
 });
 

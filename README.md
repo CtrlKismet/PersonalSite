@@ -21,6 +21,8 @@
 }
 ```
 
+当设置`float:right;`时，里面的元素需要按照相反的顺序从上往下写。
+
 当设置为`display:block;`之后，`animation`才会被触发。(?)
 
 设置`animation-fill-mode:forwards`之后能保留动画效果。

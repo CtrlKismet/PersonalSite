@@ -6,6 +6,7 @@
 
 * {
     margin: 0;
+    user-select: none;
 }
 
 html,
@@ -166,27 +167,52 @@ button:focus {
 .head-bar {
     position: fixed;
     top: 0;
+    z-index: 200;
     width: 100%;
     height: 50px;
-    padding: 0 10px;
     background-color: #f8f8f8;
     border-color: #e7e7e7;
     border-radius: 0 0 2px 5px;
     border: 1px solid transparent;
 }
 
-.head-bar>ul {
+.head-bar ul {
     margin: 0;
     padding: 0;
 }
 
-.head-bar * {
-    display: inline-block;
+.head-bar ul.right-side {
+    margin-top: 6px;
 }
 
-.head-bar>ul.right-side {
+.fluid {
+    padding: 0 10px;
+    margin: 0 auto 0 auto;
+}
+
+.left-side {
+    float: left;
+}
+
+.right-side {
     float: right;
-    margin-top: 6px;
+}
+
+ul.right-side>li {
+    position: relative;
+    float: right;
+    display: block;
+}
+
+#bg-dropdown>span {
+    color: #337ab7;
+    margin-right: 25px;
+    font-size: 35px;
+}
+
+#bg-dropdown>span:hover {
+    cursor: pointer;
+    color: #23527c;
 }
 
 .welcome-text {
@@ -255,15 +281,54 @@ button:focus {
     background-color: rgba(255, 255, 255, 0.6);
 }
 
-.backup-img>img {
-    width: 20%;
-    transition: all 1s;
+#bg-dropdown-menu {
+    position: fixed;
+    right: 0px;
+    width: 300px;
+    height: 210px;
+    background-color: #f8f8f8;
+    top: 49px;
+    margin: -209px -1px 0 0;
+    border-bottom-left-radius: 8px;
+    border: 1px solid #ccc;
+    transition: margin-top 1s;
 }
 
-.backup-img>img.ScaletoCenter {
-    position: absolute;
+.dropdownTrans{
+    margin-top: 0 !important;
+    transition: margin-top 1s !important;
+}
+
+#bg-dropdown-menu>button {
+    position: fixed;
+    top: 220px;
+    height: 30px;
+    font-size: 20px;
+    width: 277.5px;
+    margin: 10px 9.25px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-top: -209px;
+    z-index: -1;
+    transition: margin-top 1s;
+}
+
+#bg-dropdown-menu>img {
+    position: fixed;
+    right: 11.25px;
+    top: 53.98px;
+    width: 277.5px;
+    /* height: 156.02px; */
+    margin-top: -209px;
+    transition: all 1s !important;
+}
+
+
+#bg-dropdown-menu>img.ScaletoCenter {
+    position: fixed;
     width: 80%;
-    transform: translateX(12%);
+    top: 7%;
+    transform: translateX(-12%);
     transition: all 1s;
     z-index: 1000;
     /* animation: forwards ImgScale 1s linear 1; */
