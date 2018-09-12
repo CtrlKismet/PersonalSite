@@ -34,3 +34,5 @@
 [vscode好用的插件](https://segmentfault.com/a/1190000011779959)
 
 inline-block is ignored due to the float. If 'float' has a value other than 'none', the box is floated and 'display' is treated as 'block'
+
+vue元素绑定mouseover,mouseenter,mouseout,mouseleave事件时触发机制非常的奇怪，这里我的解决方案是换成处理click

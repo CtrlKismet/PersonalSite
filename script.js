@@ -10,7 +10,9 @@ let main_page = new Vue({
     el: ".main-page",
     data: {
         isNotActive: true,
-        message: ""
+        message: "",
+        activeGray:false,
+        ZIndex:1
     },
     methods: {
         get_search: function () {
@@ -20,6 +22,10 @@ let main_page = new Vue({
             //注意顺序，这里link之后再清零操作无效
             main_page.message="";
             $("#link_to_baidu")[0].click();
+        },
+        scale:function () {
+            main_page.activeGray=!main_page.activeGray;
+            console.log("mouseenter");
         }
     }
 });
