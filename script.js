@@ -11,8 +11,8 @@ let main_page = new Vue({
     data: {
         isNotActive: true,
         message: "",
-        activeGray:false,
-        activeDropdownBG:false
+        activeGray: false,
+        activeDropdownBG: false
     },
     methods: {
         get_search: function () {
@@ -20,15 +20,18 @@ let main_page = new Vue({
             //$("#link_to_baidu").trigger("click");
 
             //注意顺序，这里link之后再清零操作无效
-            main_page.message="";
+            main_page.message = "";
             $("#link_to_baidu")[0].click();
         },
-        scale:function () {
-            main_page.activeGray=!main_page.activeGray;
+        scale: function () {
+            main_page.activeGray = !main_page.activeGray;
         },
-        dropdown:function () {
-            main_page.activeDropdownBG=!main_page.activeDropdownBG;
-          }
+        dropdown: function () {
+            main_page.activeDropdownBG = !main_page.activeDropdownBG;
+        },
+        change_bg: function () {
+            $('#backupBG').src = $('#img-id').src + "?" + Math.random();
+        }
     }
 });
 
@@ -48,4 +51,6 @@ window.onload = function () {
     // this.setTimeout("loading_page_fadeOut()", 3000);
     // loading_page_fadeOut();
     loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
+    $('body').css('backgroundImage', $('body').css('backgroundImage').slice(0, -2) + "?" + Math.random() + '")');
+    $('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();
 };

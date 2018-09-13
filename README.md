@@ -38,3 +38,5 @@
 inline-block is ignored due to the float. If 'float' has a value other than 'none', the box is floated and 'display' is treated as 'block'
 
 vue元素绑定mouseover,mouseenter,mouseout,mouseleave事件时触发机制非常的奇怪，这里我的解决方案是换成处理click
+
+在切换背景图时，在图片的src后加入随机数即可重新加载图片，如`$('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();`

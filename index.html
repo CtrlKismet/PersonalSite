@@ -45,10 +45,14 @@
             </div>
         </nav>
         <div v-bind:class="{dropdownTrans:activeDropdownBG}" id="bg-dropdown-menu" >
-            <img class="" src="./images/backupBG.jpg" @click="scale" v-bind:class="[{ScaletoCenter:activeGray},{dropdownTrans:activeDropdownBG}]" />
-            <button v-bind:class="{dropdownTrans:activeDropdownBG}"  class="btn-primary"><span class="glyphicon glyphicon-ok "></span></button>
+            <div class="gray-bg" @click="scale" v-bind:class="{fadeInGray:activeGray}"></div>
+            <img id="backupBG" class="" src="./images/backupBG.jpg" @click="scale" v-bind:class="[{ScaletoCenter:activeGray},{dropdownTrans:activeDropdownBG}]" />
+            <a v-bind:class="{dropdownTrans:activeDropdownBG}" href="https://www.baidu.com">
+                <button v-bind:class="{dropdownTrans:activeDropdownBG}" class="btn-primary" @click="change_bg">
+                    <span class="glyphicon glyphicon-ok "></span>
+                </button>
+            </a>
         </div>
-        <div class="gray-bg" @click="scale" v-bind:class="{fadeIn:activeGray}"></div>
         <div class="main-window">
             <div class="main-text">
                 <div>
