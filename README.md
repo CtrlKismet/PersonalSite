@@ -31,6 +31,9 @@
 
 ### javascript 部分
 
+页面的DOM文件树加载完成后可用`$(document).ready(function () {});`
+页面的所有文件加载完成后可用`window.onload = function () {};`
+
 ### 其他
 
 [vscode好用的插件](https://segmentfault.com/a/1190000011779959)

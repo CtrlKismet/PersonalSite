@@ -47,10 +47,14 @@ function loading_page_fadeOut() {
     setTimeout("loading_page.isActive = false;", 3000);
 }
 
+$(document).ready(function () {
+    $('body').css('backgroundImage', $('body').css('backgroundImage').slice(0, -2) + "?" + Math.random() + '")');
+    $('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();
+});
+
 window.onload = function () {
     // this.setTimeout("loading_page_fadeOut()", 3000);
     // loading_page_fadeOut();
     loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
-    $('body').css('backgroundImage', $('body').css('backgroundImage').slice(0, -2) + "?" + Math.random() + '")');
-    $('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();
+
 };
