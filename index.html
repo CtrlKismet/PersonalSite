@@ -39,12 +39,11 @@
                         <li id="bg-dropdown">
                             <span class="glyphicon glyphicon-heart" aria-hidden="true" @click="dropdown"></span>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
-        <div v-bind:class="{dropdownTrans:activeDropdownBG}" id="bg-dropdown-menu" >
+        <div v-bind:class="{dropdownTrans:activeDropdownBG}" id="bg-dropdown-menu">
             <div class="gray-bg" @click="scale" v-bind:class="{fadeInGray:activeGray}"></div>
             <img id="backupBG" class="" src="./images/backupBG.jpg" @click="scale" v-bind:class="[{ScaletoCenter:activeGray},{dropdownTrans:activeDropdownBG}]" />
             <a v-bind:class="{dropdownTrans:activeDropdownBG}" href="https://www.baidu.com">
@@ -55,7 +54,44 @@
         </div>
         <div class="main-window">
             <div class="main-text">
+                <div class="show-all-messages">
+                    <ul>
+                        <li>123</li>
+                        <li>456</li>
+                    </ul>
+                    <div class="focus-message">
+
+                    </div>
+                </div>
+                <div class="b1libil1">
+
+                </div>
                 <div>
+                    <div v-for="video in b1l1b1l1" class="video-links">
+                        <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
+                    </div>
+                </div>
+                <div class="schedule">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sun</th>
+                                <th>Mon</th>
+                                <th>Tue</th>
+                                <th>Wed</th>
+                                <th>Thu</th>
+                                <th>Fri</th>
+                                <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="col in DayCOL">
+                                <td v-for="day in col" v-bind:class="[{ActiveDay:day.active},{nowDay:day.isNow}]">
+                                    {{day.number}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

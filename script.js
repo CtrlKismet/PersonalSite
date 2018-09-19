@@ -12,7 +12,75 @@ let main_page = new Vue({
         isNotActive: true,
         message: "",
         activeGray: false,
-        activeDropdownBG: false
+        activeDropdownBG: false,
+        DayCOL: [],
+        b1l1b1l1:[]
+    },
+    mounted: function () {
+        this.$nextTick(function () {
+            var nowaday = new Date();
+            var m = new Date();
+            var cnt = 0;
+            var C = new Array();
+            //处理上个月
+            m = new Date(m.getFullYear(), m.getMonth(), 1);
+            for (var i = 1; i <= m.getDay(); i++) {
+                var t = new Date(m.getFullYear(), m.getMonth(), i - m.getDay());
+                C.push({
+                    isNow: false,
+                    active: false,
+                    number: t.getDate()
+                });
+                cnt++;
+            }
+
+            //处理当月
+            var nowMonth = m.getMonth();
+            while (m.getMonth() == nowMonth) {
+                C.push({
+                    isNow: (nowaday.getDate() == m.getDate()),
+                    active: true,
+                    number: m.getDate()
+                });
+                cnt++;
+                m = new Date(m.getFullYear(), m.getMonth(), m.getDate() + 1);
+                if (cnt == 7) {
+                    main_page.DayCOL.push(C);
+                    C = new Array();
+                    cnt = 0;
+                }
+            }
+            //处理下个月
+            while (m.getDay() != 6) {
+                C.push({
+                    isNow: false,
+                    active: false,
+                    number: m.getDate()
+                });
+
+                m = new Date(m.getFullYear(), m.getMonth(), m.getDate() + 1);
+            }
+            //最后一天
+            C.push({
+                active: false,
+                number: m.getDate()
+            });
+            main_page.DayCOL.push(C);
+
+            //获取视频数据B1l1b1l1
+            $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
+                json_data.data.cards.forEach(i => {
+                    var x=JSON.parse(i.card);
+                    if(x.category!=null) return;
+                    var title=x.title;
+                    if(x.apiSeasonInfo!=null) title=x.apiSeasonInfo.title+" "+x.index+" "+x.index_title;
+                    main_page.b1l1b1l1.push({
+                        url:"https://www.bilibili.com/video/av"+x.aid,
+                        title:title
+                    });
+                });
+            });
+        });
     },
     methods: {
         get_search: function () {
@@ -31,6 +99,10 @@ let main_page = new Vue({
         },
         change_bg: function () {
             $('#backupBG').src = $('#img-id').src + "?" + Math.random();
+        },
+        change_row: function () {
+            main_page.row = 3;
+            alert('sda');
         }
     }
 });
@@ -56,5 +128,4 @@ window.onload = function () {
     // this.setTimeout("loading_page_fadeOut()", 3000);
     // loading_page_fadeOut();
     loading_page_fadeOut_FOR_DEBUG_NOT_LOADED_();
-
 };

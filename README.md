@@ -21,6 +21,16 @@
 }
 ```
 
+如果需要将`<ul></ul>`里的元素显示在同一横排，则需要将里面所有的`<li></li>`的style设置为
+
+``` html
+ul>li {
+    position: relative;
+    float: left;
+    display: block;
+}
+```
+
 当设置`float:right;`时，里面的元素需要按照相反的顺序从上往下写。
 
 当设置为`display:block;`之后，`animation`才会被触发。(?)
@@ -28,6 +38,8 @@
 设置`animation-fill-mode:forwards`之后能保留动画效果。
 
 `transition: property time;`property属性可以选择填写all，这样可以使所有变化属性拥有动画。
+
+`position:absolute;`的位置基于上一个设置为`absolute`的父元素。
 
 ### javascript 部分
 
@@ -43,3 +55,7 @@ inline-block is ignored due to the float. If 'float' has a value other than 'non
 vue元素绑定mouseover,mouseenter,mouseout,mouseleave事件时触发机制非常的奇怪，这里我的解决方案是换成处理click
 
 在切换背景图时，在图片的src后加入随机数即可重新加载图片，如`$('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();`
+
+### To Do List
+
+可以尝试制作鼠标指针
