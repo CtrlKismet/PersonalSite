@@ -56,6 +56,8 @@ vue元素绑定mouseover,mouseenter,mouseout,mouseleave事件时触发机制非�
 
 在切换背景图时，在图片的src后加入随机数即可重新加载图片，如`$('#backupBG')[0].src = $('#backupBG')[0].src + "?" + Math.random();`
 
+vue元素数组值动态渲染时需要使用`Vue.set(vm.items, indexOfItem, newValue)`
+
 ### To Do List
 
 可以尝试制作鼠标指针

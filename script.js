@@ -14,7 +14,37 @@ let main_page = new Vue({
         activeGray: false,
         activeDropdownBG: false,
         DayCOL: [],
-        b1l1b1l1:[]
+        // {
+        //     isNow: true,   //是不是今天
+        //     active: true,  //是不是本月
+        //     number: ""     //日期（day）
+        // }
+        title_to_index:{   //实现页码的简单传参
+            "b1l1b1l1":1,
+        },
+        page_show: [false],
+        b1l1b1l1_msg: [],
+        // {
+        //     url:"",  //视频链接
+        //     title:"" //视频标题
+        // }
+        all_page: [{},{
+            active: false,
+            title: "bilibili",
+            index: 1,
+            isOpen:false
+        }, {
+            active: false,
+            title: "test long title how do display in the main page",
+            index: 2,
+            isOpen:false
+        }]
+        // {
+        //     active:true,    //当前页面是否激活
+        //     title:"",       //标题
+        //     index:1,        //序号
+        //     isOpen:true     //当前页面是否打开
+        // }
     },
     mounted: function () {
         this.$nextTick(function () {
@@ -70,13 +100,13 @@ let main_page = new Vue({
             //获取视频数据B1l1b1l1
             $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
                 json_data.data.cards.forEach(i => {
-                    var x=JSON.parse(i.card);
-                    if(x.category!=null) return;
-                    var title=x.title;
-                    if(x.apiSeasonInfo!=null) title=x.apiSeasonInfo.title+" "+x.index+" "+x.index_title;
-                    main_page.b1l1b1l1.push({
-                        url:"https://www.bilibili.com/video/av"+x.aid,
-                        title:title
+                    var x = JSON.parse(i.card);
+                    if (x.category != null) return;
+                    var title = x.title;
+                    if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
+                    main_page.b1l1b1l1_msg.push({
+                        url: "https://www.bilibili.com/video/av" + x.aid,
+                        title: title
                     });
                 });
             });
@@ -103,7 +133,12 @@ let main_page = new Vue({
         change_row: function () {
             main_page.row = 3;
             alert('sda');
+        },
+        show_page: function (idx) {
+            Vue.set(main_page.page_show, idx, true);
+            Vue.set(main_page.all_page[idx], "isOpen", true);
         }
+
     }
 });
 

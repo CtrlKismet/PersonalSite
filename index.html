@@ -55,22 +55,18 @@
         <div class="main-window">
             <div class="main-text">
                 <div class="show-all-messages">
-                    <ul>
-                        <li>123</li>
-                        <li>456</li>
+                    <ul id="head-window">
+                        <li v-for="page in all_page" :class="{ActiveWindow:page.active}" v-show="page.isOpen">{{page.title}}</li>
                     </ul>
                     <div class="focus-message">
-
+                        <div>
+                            <div v-for="video in b1l1b1l1_msg" class="video-links" v-show="page_show[title_to_index['b1l1b1l1']]">
+                                <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="b1libil1">
-
-                </div>
-                <div>
-                    <div v-for="video in b1l1b1l1" class="video-links">
-                        <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
-                    </div>
-                </div>
+                <div class="b1libil1" @click="show_page(title_to_index['b1l1b1l1'])"></div>
                 <div class="schedule">
                     <table>
                         <thead>
