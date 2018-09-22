@@ -56,17 +56,26 @@
             <div class="main-text">
                 <div class="show-all-messages">
                     <ul id="head-window">
-                        <li v-for="page in all_page" :class="{ActiveWindow:page.active}" v-show="page.isOpen">{{page.title}}</li>
+                        <li v-show="!now_active_page_cnt" :class="{ActiveWindow:!now_active_page_cnt}" :style="{width:(!now_active_page_cnt)*100+'%'}"></li>
+                        <li v-for="page in all_page" :class="{ActiveWindow:page.active}" :style="head_window_width"
+                            v-show="page_show[page.index]" @dblclick="close_page(page.index)">
+                            <div class="title-text" @click="show_page(page.index)">{{page.title}}</div>
+                            <div class="close-tag" @click="close_page(page.index)"></div>
+                        </li>
                     </ul>
                     <div class="focus-message">
-                        <div>
-                            <div v-for="video in b1l1b1l1_msg" class="video-links" v-show="page_show[title_to_index['b1l1b1l1']]">
+                        <div v-show="all_page[title_to_index['bilibili']].active">
+                            <div v-for="video in bilibili_msg" class="video-links">
                                 <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
                             </div>
                         </div>
+                        <div v-show="all_page[title_to_index['test long title how do display in the main page']].active">
+                            test new window!
+                        </div>
                     </div>
                 </div>
-                <div class="b1libil1" @click="show_page(title_to_index['b1l1b1l1'])"></div>
+                <div class="b1libil1" @click="show_page(title_to_index['bilibili'])"></div>
+                <div id="test-for-multi" @click="show_page(title_to_index['test long title how do display in the main page'])"></div>
                 <div class="schedule">
                     <table>
                         <thead>

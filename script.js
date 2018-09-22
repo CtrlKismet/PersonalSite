@@ -19,25 +19,29 @@ let main_page = new Vue({
         //     active: true,  //是不是本月
         //     number: ""     //日期（day）
         // }
-        title_to_index:{   //实现页码的简单传参
-            "b1l1b1l1":1,
+        title_to_index: { //实现页码的简单传参
+            "bilibili": 1,
+            "test long title how do display in the main page": 2
         },
-        page_show: [false],
-        b1l1b1l1_msg: [],
+        page_show: [false, false], //页面在首页显示
+        now_active_page: 0, //当前激活的界面序号
+        now_active_page_cnt: 0, //当前激活的界面数量
+        head_window_width: {
+            width: '0'
+        },
+        bilibili_msg: [],
         // {
         //     url:"",  //视频链接
         //     title:"" //视频标题
         // }
-        all_page: [{},{
+        all_page: [{}, {
             active: false,
             title: "bilibili",
-            index: 1,
-            isOpen:false
+            index: 1
         }, {
             active: false,
             title: "test long title how do display in the main page",
-            index: 2,
-            isOpen:false
+            index: 2
         }]
         // {
         //     active:true,    //当前页面是否激活
@@ -97,14 +101,14 @@ let main_page = new Vue({
             });
             main_page.DayCOL.push(C);
 
-            //获取视频数据B1l1b1l1
+            //获取视频数据Bilibili
             $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
                 json_data.data.cards.forEach(i => {
                     var x = JSON.parse(i.card);
                     if (x.category != null) return;
                     var title = x.title;
                     if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
-                    main_page.b1l1b1l1_msg.push({
+                    main_page.bilibili_msg.push({
                         url: "https://www.bilibili.com/video/av" + x.aid,
                         title: title
                     });
@@ -135,8 +139,31 @@ let main_page = new Vue({
             alert('sda');
         },
         show_page: function (idx) {
-            Vue.set(main_page.page_show, idx, true);
-            Vue.set(main_page.all_page[idx], "isOpen", true);
+            //处理页面是否在主页上
+            if (main_page.page_show[idx] == true);
+            else {
+                Vue.set(main_page.page_show, idx, true);
+                //处理多出界面后标题栏统一宽度
+                main_page.now_active_page_cnt++;
+                main_page.head_window_width.width = 100 / main_page.now_active_page_cnt + '%';
+            }
+            //激活当前界面
+            if (main_page.now_active_page != 0) Vue.set(main_page.all_page[main_page.now_active_page], "active", false);
+            Vue.set(main_page.all_page[idx], "active", true); //因为加不加入if几乎不影响时间，所以省略
+            main_page.now_active_page = idx;
+        },
+        close_page: function (idx) {
+            Vue.set(main_page.page_show, idx, false);
+            main_page.now_active_page_cnt--;
+            main_page.head_window_width.width = 100 / main_page.now_active_page_cnt + '%';
+            if(main_page.now_active_page_cnt<1) {
+                Vue.set(main_page.all_page[idx], "active", false);
+                return;
+            }
+            if (idx == main_page.now_active_page) {
+                main_page.now_active_page = idx == 1 ? 2 : idx - 1;
+                this.show_page(main_page.now_active_page);
+            }
         }
 
     }

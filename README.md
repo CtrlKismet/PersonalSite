@@ -31,6 +31,16 @@ ul>li {
 }
 ```
 
+如果需要将文字在同一行显示并且多余部分显示为省略号，可以设置为
+
+``` html
+div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+```
+
 当设置`float:right;`时，里面的元素需要按照相反的顺序从上往下写。
 
 当设置为`display:block;`之后，`animation`才会被触发。(?)

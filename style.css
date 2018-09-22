@@ -390,16 +390,47 @@ ul.right-side>li {
     position: relative;
     float: left;
     display: block;
-    width: 100px;
     height: 40px;
+    padding: 3px 5px;
     background-color: #a0a0a0c2;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
+    border-top-right-radius: 7px;
+    border-top-left-radius: 7px;
+    transition: background-color 0.3s;
 }
 
-ul#head-window>li.ActiveWindow {
-    background-color: #ccccccbd;
+#head-window>li:hover {
+    background-color: #bbbbbbc2;
 }
+
+#head-window>li.ActiveWindow {
+    background-color: #ccccccbd !important;
+}
+
+#head-window>li>.title-text {
+    display: inline-block;
+    width: calc(100% - 35px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#head-window>li>.close-tag {
+    position: relative;
+    float: right;
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 3.5px;
+    border-radius: 20px;
+    background: url('./images/close.png') no-repeat center;
+    background-size: 50%;
+    transition: background-color 0.5s;
+}
+
+#head-window>li>.close-tag:hover {
+    background-color: #c1bdbdbd;
+}
+
 
 .focus-message {
     height: calc(100% - 40px);
@@ -408,6 +439,7 @@ ul#head-window>li.ActiveWindow {
     border-radius: 5px;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
+    overflow-y: auto;
 }
 
 .focus-message>div {
@@ -497,4 +529,14 @@ ul#head-window>li.ActiveWindow {
     white-space: nowrap;
     font-size: 20px;
     padding: 5px;
+}
+
+#test-for-multi {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 240px;
+    top: 450px;
+    background-image: url('./images/b1l1b1l1_bg.png');
+    background-size: 100%;
 }
