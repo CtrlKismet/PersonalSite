@@ -21,9 +21,10 @@ let main_page = new Vue({
         // }
         title_to_index: { //实现页码的简单传参
             "bilibili": 1,
-            "test long title how do display in the main page": 2
+            "notepad": 2,
+            "downupload": 3
         },
-        page_show: [false, false], //页面在首页显示
+        page_show: [false, false, false], //页面在首页显示
         now_active_page: 0, //当前激活的界面序号
         now_active_page_cnt: 0, //当前激活的界面数量
         head_window_width: {
@@ -36,18 +37,27 @@ let main_page = new Vue({
         // }
         all_page: [{}, {
             active: false,
-            title: "bilibili",
+            title: "哔哩哔哩",
             index: 1
         }, {
             active: false,
-            title: "test long title how do display in the main page",
+            title: "便签",
             index: 2
-        }]
+        }, {
+            active: false,
+            title: "云盘",
+            index: 3
+        }],
         // {
         //     active:true,    //当前页面是否激活
         //     title:"",       //标题
         //     index:1,        //序号
         //     isOpen:true     //当前页面是否打开
+        // }
+        downupload_file_msg: []
+        // {
+        //     filename:"",      //文件名称
+        //     filesize:""       //文件大小（带单位  MB,KB）
         // }
     },
     mounted: function () {
@@ -114,6 +124,11 @@ let main_page = new Vue({
                     });
                 });
             });
+
+            //获取服务器上的文件
+            $.get("http://ctrlkismet.top/home/GetFileData", function (json_data) {
+                main_page.downupload_file_msg = json_data;
+            });
         });
     },
     methods: {
@@ -134,10 +149,6 @@ let main_page = new Vue({
         change_bg: function () {
             $('#backupBG').src = $('#img-id').src + "?" + Math.random();
         },
-        change_row: function () {
-            main_page.row = 3;
-            alert('sda');
-        },
         show_page: function (idx) {
             //处理页面是否在主页上
             if (main_page.page_show[idx] == true);
@@ -153,19 +164,80 @@ let main_page = new Vue({
             main_page.now_active_page = idx;
         },
         close_page: function (idx) {
+            //关闭idx的标签
             Vue.set(main_page.page_show, idx, false);
             main_page.now_active_page_cnt--;
             main_page.head_window_width.width = 100 / main_page.now_active_page_cnt + '%';
-            if(main_page.now_active_page_cnt<1) {
-                Vue.set(main_page.all_page[idx], "active", false);
+            Vue.set(main_page.all_page[idx], "active", false);
+
+            //只有idx一个标签
+            if (main_page.now_active_page_cnt < 1) {
                 return;
             }
+
+            //idx为当前激活的标签
             if (idx == main_page.now_active_page) {
-                main_page.now_active_page = idx == 1 ? 2 : idx - 1;
+                var temp_page=-1;
+                for (var i = idx - 1; i >= 1; i--) {
+                    if (main_page.page_show[i]) {
+                        temp_page= i;
+                        break;
+                    }
+                }
+                if(temp_page==-1) for (var i = idx+1; i <= main_page.all_page.length; i++) {
+                    if (main_page.page_show[i]) {
+                        temp_page = i;
+                        break;
+                    }
+                }
+                main_page.now_active_page=temp_page;
                 this.show_page(main_page.now_active_page);
             }
-        }
+        },
+        reload_page: function (idx) {
+            //获取视频数据Bilibili
+            if(idx==1) {
+                main_page.bilibili_msg.splice(0,main_page.bilibili_msg.length);
+                $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
+                json_data.data.cards.forEach(i => {
+                    var x = JSON.parse(i.card);
+                    if (x.category != null) return;
+                    var title = x.title;
+                    if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
+                    main_page.bilibili_msg.push({
+                        url: "https://www.bilibili.com/video/av" + x.aid,
+                        title: title
+                    });
+                });
+            });}
 
+            //获取服务器上的文件
+            else if(idx==3) $.get("http://ctrlkismet.top/home/GetFileData", function (json_data) {
+                main_page.downupload_file_msg = json_data;
+            });
+        },
+        delete_file: function (filename) {
+            $.get("http://ctrlkismet.top/home/DeleteFile?filename=" + filename, function (json_data) {
+                main_page.downupload_file_msg = json_data;
+            });
+        },
+        upload_file: function () {
+            var fileUpload = $("#fileinput").get(0);
+            var file = fileUpload.files[0];
+            var data = new FormData();
+            data.append(file.name, file);
+            $.ajax({
+                type: "POST",
+                url: "http://ctrlkismet.top/home/Upload",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (e) {
+                    console.log(e);
+                    //$uibModalInstance.close(e);
+                }
+            });
+        }
     }
 });
 

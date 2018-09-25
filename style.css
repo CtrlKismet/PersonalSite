@@ -6,7 +6,7 @@
 
 * {
     margin: 0;
-    /* user-select: none; */
+    user-select: none;
 }
 
 html,
@@ -408,10 +408,13 @@ ul.right-side>li {
 
 #head-window>li>.title-text {
     display: inline-block;
-    width: calc(100% - 35px);
+    width: calc(100% - 70px);
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 20px;
+    padding: 2px 3px;
+    text-align: center;
 }
 
 #head-window>li>.close-tag {
@@ -431,6 +434,22 @@ ul.right-side>li {
     background-color: #c1bdbdbd;
 }
 
+#head-window>li>.reload-tag {
+    position: relative;
+    float: right;
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 3.5px;
+    border-radius: 20px;
+    background: url('./images/reload.png') no-repeat center;
+    background-size: 50%;
+    transition: background-color 0.5s;
+}
+
+#head-window>li>.reload-tag:hover {
+    background-color: #c1bdbdbd;
+}
 
 .focus-message {
     height: calc(100% - 40px);
@@ -531,12 +550,30 @@ ul.right-side>li {
     padding: 5px;
 }
 
-#test-for-multi {
+/*notepad setting*/
+
+.notepad {
     width: 100px;
     height: 100px;
     position: absolute;
     right: 240px;
     top: 450px;
-    background-image: url('./images/b1l1b1l1_bg.png');
-    background-size: 100%;
+    background: url('./images/notepad.png') no-repeat center;
+    background-size: 90%;
+}
+
+.notepad:hover {
+    cursor: pointer;
+}
+
+/*download/upload setting*/
+
+.downupload {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 140px;
+    top: 450px;
+    background: url('./images/downupload.png') no-repeat center;
+    background-size: 80%;
 }

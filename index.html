@@ -61,6 +61,7 @@
                             v-show="page_show[page.index]" @dblclick="close_page(page.index)">
                             <div class="title-text" @click="show_page(page.index)">{{page.title}}</div>
                             <div class="close-tag" @click="close_page(page.index)"></div>
+                            <div class="reload-tag" @click="reload_page(page.index)"></div>
                         </li>
                     </ul>
                     <div class="focus-message">
@@ -69,13 +70,25 @@
                                 <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
                             </div>
                         </div>
-                        <div v-show="all_page[title_to_index['test long title how do display in the main page']].active">
-                            test new window!
+                        <div v-show="all_page[title_to_index['notepad']].active">
+                            test notepad window!
+                        </div>
+                        <div v-show="all_page[title_to_index['downupload']].active">
+                            <div>
+                                <input type="file" id="fileinput" style="display:inline-block;" />
+                                <button @click="upload_file">上传（文件大小应小于100MB）</button>
+                            </div>
+                            <div v-for="file in downupload_file_msg">
+                                <div>{{file.filename}}&nbsp;&nbsp;&nbsp;&nbsp;{{file.filesize}}</div>
+                                <a :href="'http://www.ctrlkismet.top/home/Download?filename='+file.filename">下载</a>
+                                <a @click="delete_file(file.filename)">删除</a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="b1libil1" @click="show_page(title_to_index['bilibili'])"></div>
-                <div id="test-for-multi" @click="show_page(title_to_index['test long title how do display in the main page'])"></div>
+                <div class="notepad" @click="show_page(title_to_index['notepad'])"></div>
+                <div class="downupload" @click="show_page(title_to_index['downupload'])"></div>
                 <div class="schedule">
                     <table>
                         <thead>
