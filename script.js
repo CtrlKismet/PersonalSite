@@ -54,7 +54,8 @@ let main_page = new Vue({
         //     index:1,        //序号
         //     isOpen:true     //当前页面是否打开
         // }
-        downupload_file_msg: []
+        upload_percentage: 0.0, //文件上传进度
+        downupload_file_msg: [],
         // {
         //     filename:"",      //文件名称
         //     filesize:""       //文件大小（带单位  MB,KB）
@@ -62,14 +63,14 @@ let main_page = new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
-            var nowaday = new Date();
-            var m = new Date();
-            var cnt = 0;
-            var C = new Array();
+            let nowaday = new Date();
+            let m = new Date();
+            let cnt = 0;
+            let C = new Array();
             //处理上个月
             m = new Date(m.getFullYear(), m.getMonth(), 1);
-            for (var i = 1; i <= m.getDay(); i++) {
-                var t = new Date(m.getFullYear(), m.getMonth(), i - m.getDay());
+            for (let i = 1; i <= m.getDay(); i++) {
+                let t = new Date(m.getFullYear(), m.getMonth(), i - m.getDay());
                 C.push({
                     isNow: false,
                     active: false,
@@ -79,7 +80,7 @@ let main_page = new Vue({
             }
 
             //处理当月
-            var nowMonth = m.getMonth();
+            let nowMonth = m.getMonth();
             while (m.getMonth() == nowMonth) {
                 C.push({
                     isNow: (nowaday.getDate() == m.getDate()),
@@ -111,18 +112,33 @@ let main_page = new Vue({
             });
             main_page.DayCOL.push(C);
 
+            if (main_page.DayCOL.length < 6) {
+                C = new Array();
+                for (let i = 0; i < 7; i++) {
+                    m = new Date(m.getFullYear(), m.getMonth(), m.getDate() + 1);
+                    C.push({
+                        isNow: false,
+                        active: false,
+                        number: m.getDate()
+                    });
+                }
+                main_page.DayCOL.push(C);
+            }
+
             //获取视频数据Bilibili
             $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
                 json_data.data.cards.forEach(i => {
-                    var x = JSON.parse(i.card);
+                    let x = JSON.parse(i.card);
                     if (x.category != null) return;
-                    var title = x.title;
+                    let title = x.title;
                     if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
                     main_page.bilibili_msg.push({
                         url: "https://www.bilibili.com/video/av" + x.aid,
-                        title: title
+                        title: title,
+                        active: false
                     });
                 });
+                Vue.set(main_page.bilibili_msg[0], "active", true);
             });
 
             //获取服务器上的文件
@@ -132,6 +148,7 @@ let main_page = new Vue({
         });
     },
     methods: {
+        // 导航栏中的搜索相关
         get_search: function () {
             //无法直接触发，需通过下面的写法或者触发a标签里的其他元素
             //$("#link_to_baidu").trigger("click");
@@ -140,6 +157,8 @@ let main_page = new Vue({
             main_page.message = "";
             $("#link_to_baidu")[0].click();
         },
+
+        //壁纸更换相关
         scale: function () {
             main_page.activeGray = !main_page.activeGray;
         },
@@ -149,6 +168,8 @@ let main_page = new Vue({
         change_bg: function () {
             $('#backupBG').src = $('#img-id').src + "?" + Math.random();
         },
+
+        //页面通用设置相关
         show_page: function (idx) {
             //处理页面是否在主页上
             if (main_page.page_show[idx] == true);
@@ -177,54 +198,78 @@ let main_page = new Vue({
 
             //idx为当前激活的标签
             if (idx == main_page.now_active_page) {
-                var temp_page=-1;
-                for (var i = idx - 1; i >= 1; i--) {
-                    if (main_page.page_show[i]) {
-                        temp_page= i;
-                        break;
-                    }
-                }
-                if(temp_page==-1) for (var i = idx+1; i <= main_page.all_page.length; i++) {
+                let temp_page = -1;
+                for (let i = idx - 1; i >= 1; i--) {
                     if (main_page.page_show[i]) {
                         temp_page = i;
                         break;
                     }
                 }
-                main_page.now_active_page=temp_page;
+                if (temp_page == -1)
+                    for (let i = idx + 1; i <= main_page.all_page.length; i++) {
+                        if (main_page.page_show[i]) {
+                            temp_page = i;
+                            break;
+                        }
+                    }
+                main_page.now_active_page = temp_page;
                 this.show_page(main_page.now_active_page);
             }
         },
         reload_page: function (idx) {
             //获取视频数据Bilibili
-            if(idx==1) {
-                main_page.bilibili_msg.splice(0,main_page.bilibili_msg.length);
+            if (idx == 1) {
+                main_page.bilibili_msg.splice(0, main_page.bilibili_msg.length);
                 $.get("http://ctrlkismet.top/home/GetB1l1b1l1Data", function (json_data) {
-                json_data.data.cards.forEach(i => {
-                    var x = JSON.parse(i.card);
-                    if (x.category != null) return;
-                    var title = x.title;
-                    if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
-                    main_page.bilibili_msg.push({
-                        url: "https://www.bilibili.com/video/av" + x.aid,
-                        title: title
+                    json_data.data.cards.forEach(i => {
+                        let x = JSON.parse(i.card);
+                        if (x.category != null) return;
+                        let title = x.title;
+                        if (x.apiSeasonInfo != null) title = x.apiSeasonInfo.title + " " + x.index + " " + x.index_title;
+                        main_page.bilibili_msg.push({
+                            url: "https://www.bilibili.com/video/av" + x.aid,
+                            title: title
+                        });
                     });
                 });
-            });}
+            }
 
             //获取服务器上的文件
-            else if(idx==3) $.get("http://ctrlkismet.top/home/GetFileData", function (json_data) {
+            else if (idx == 3) $.get("http://ctrlkismet.top/home/GetFileData", function (json_data) {
                 main_page.downupload_file_msg = json_data;
             });
         },
+
+        //视频相关
+        change_focus_video: function (direction) {
+            let nowpage = 0;
+            for (let i = 0; i < main_page.bilibili_msg.length; i++) {
+                if (main_page.bilibili_msg[i]["active"]) {
+                    nowpage = i;
+                    break;
+                }
+            }
+            //清除旧标记
+            Vue.set(main_page.bilibili_msg[nowpage],"active",false);
+
+            if(nowpage+direction<0) nowpage=0;
+            else if(nowpage+direction>=main_page.bilibili_msg.length) nowpage=main_page.bilibili_msg.length-1;
+            else nowpage+=direction;
+
+            //设置新标记
+            Vue.set(main_page.bilibili_msg[nowpage],"active",true);
+        },
+
+        //文件上传下载相关
         delete_file: function (filename) {
             $.get("http://ctrlkismet.top/home/DeleteFile?filename=" + filename, function (json_data) {
                 main_page.downupload_file_msg = json_data;
             });
         },
         upload_file: function () {
-            var fileUpload = $("#fileinput").get(0);
-            var file = fileUpload.files[0];
-            var data = new FormData();
+            let fileUpload = $("#fileinput").get(0);
+            let file = fileUpload.files[0];
+            let data = new FormData();
             data.append(file.name, file);
             $.ajax({
                 type: "POST",
@@ -232,9 +277,19 @@ let main_page = new Vue({
                 contentType: false,
                 processData: false,
                 data: data,
-                success: function (e) {
-                    console.log(e);
-                    //$uibModalInstance.close(e);
+                xhr: function xhr() {
+                    let xhr = $.ajaxSettings.xhr();
+                    if (xhr.upload) {
+                        xhr.upload.addEventListener('progress', function (e) {
+                            main_page.upload_percentage = (e.loaded / e.total).toFixed(2);
+                        }, false);
+                    }
+                    return xhr;
+                },
+                success: function () {
+                    main_page.reload_page(3);
+                    main_page.upload_percentage = 0;
+                    $('.upload-file span').show();
                 }
             });
         }

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Welcome to CtrlKismet's web!</title>
 
@@ -10,6 +11,7 @@
 </head>
 
 <body>
+    <!-- 加载动画 -->
     <div class="loading-page" v-show="isActive" v-bind:class="{loadingPageFadeOut:isLoad}">
         <div class="rect-loading">
             <div class="rect1"></div>
@@ -20,7 +22,9 @@
         </div>
     </div>
 
+    <!-- 主界面 -->
     <div class="main-page" v-show="!isNotActive" v-bind:class="{fadeInAni:!isNotActive}">
+        <!-- 页面导航栏 -->
         <nav class="head-bar">
             <div class="fluid">
                 <div><a class="welcome-text left-side" href="" title="o(*￣3￣)o">｡◕ᴗ◕｡</a></div>
@@ -39,10 +43,12 @@
                         <li id="bg-dropdown">
                             <span class="glyphicon glyphicon-heart" aria-hidden="true" @click="dropdown"></span>
                         </li>
+                        <li><img src="./images/copyright.png" height="30px" style="padding-right: 10px;" /></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- 壁纸更换界面 -->
         <div v-bind:class="{dropdownTrans:activeDropdownBG}" id="bg-dropdown-menu">
             <div class="gray-bg" @click="scale" v-bind:class="{fadeInGray:activeGray}"></div>
             <img id="backupBG" class="" src="./images/backupBG.jpg" @click="scale" v-bind:class="[{ScaletoCenter:activeGray},{dropdownTrans:activeDropdownBG}]" />
@@ -52,43 +58,81 @@
                 </button>
             </a>
         </div>
+
+        <!-- 主窗口 -->
         <div class="main-window">
             <div class="main-text">
+
+                <!-- 左侧内容界面 -->
                 <div class="show-all-messages">
+                    <!-- 页面头 -->
                     <ul id="head-window">
                         <li v-show="!now_active_page_cnt" :class="{ActiveWindow:!now_active_page_cnt}" :style="{width:(!now_active_page_cnt)*100+'%'}"></li>
                         <li v-for="page in all_page" :class="{ActiveWindow:page.active}" :style="head_window_width"
-                            v-show="page_show[page.index]" @dblclick="close_page(page.index)">
-                            <div class="title-text" @click="show_page(page.index)">{{page.title}}</div>
+                            v-show="page_show[page.index]">
+                            <div class="title-text" @click="show_page(page.index)" @dblclick="close_page(page.index)">{{page.title}}</div>
                             <div class="close-tag" @click="close_page(page.index)"></div>
                             <div class="reload-tag" @click="reload_page(page.index)"></div>
                         </li>
                     </ul>
+                    <!-- 主要内容 -->
                     <div class="focus-message">
+                        <!-- 视频界面 -->
                         <div v-show="all_page[title_to_index['bilibili']].active">
-                            <div v-for="video in bilibili_msg" class="video-links">
-                                <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
+                            <div class="Prev" @click="change_focus_video(-1)"></div>
+                            <div class="videoREV">
+                                <div v-for="video in bilibili_msg" class="video-links" :class="{nowChoose:video.active}">
+                                    <a :href="video.url" target="_blank" :title="video.title">{{video.title}}</a>
+                                </div>
                             </div>
+                            <div class="Next" @click="change_focus_video(1)"></div>
                         </div>
+                        <!-- 便签界面 -->
                         <div v-show="all_page[title_to_index['notepad']].active">
                             test notepad window!
                         </div>
+                        <!-- 下载、上传文件界面 -->
                         <div v-show="all_page[title_to_index['downupload']].active">
-                            <div>
-                                <input type="file" id="fileinput" style="display:inline-block;" />
+                            <div class="upload-file">
+                                <input type="file" id="fileinput" style="display:inline-block;" onchange="$('.upload-file span').hide()" />
                                 <button @click="upload_file">上传（文件大小应小于100MB）</button>
+                                <div class="progress-bars" :style="{display:upload_percentage!=0?'inline-block':'none'}">
+                                    <div :style="{width:upload_percentage*500+'px'}">{{upload_percentage*100+'%'}}</div>
+                                </div>
+                                <span class="glyphicon glyphicon-ok" style="display:none;"></span>
                             </div>
-                            <div v-for="file in downupload_file_msg">
-                                <div>{{file.filename}}&nbsp;&nbsp;&nbsp;&nbsp;{{file.filesize}}</div>
-                                <a :href="'http://www.ctrlkismet.top/home/Download?filename='+file.filename">下载</a>
-                                <a @click="delete_file(file.filename)">删除</a>
+                            <div class="form-msg">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>名称</th>
+                                            <th>大小</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="file in downupload_file_msg">
+                                            <td>{{file.filename}}</td>
+                                            <td>{{file.filesize}}</td>
+                                            <td>
+                                                <a :href="'http://www.ctrlkismet.top/home/Download?filename='+file.filename">下载</a>
+                                                |&nbsp;<a @click="delete_file(file.filename)">删除</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- 右侧快捷入口及日历 -->
+
+                <!-- 快捷入口 -->
                 <div class="b1libil1" @click="show_page(title_to_index['bilibili'])"></div>
                 <div class="notepad" @click="show_page(title_to_index['notepad'])"></div>
                 <div class="downupload" @click="show_page(title_to_index['downupload'])"></div>
+
+                <!-- 日历 -->
                 <div class="schedule">
                     <table>
                         <thead>

@@ -465,6 +465,10 @@ ul.right-side>li {
     padding: 10px 15px;
 }
 
+.focus-message * {
+    font-size: 21.47483647px;
+}
+
 /*========================================================================*/
 
 /*
@@ -487,6 +491,7 @@ ul.right-side>li {
     border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 10px 10px 25px #888888;
+    height: 420px;
 }
 
 
@@ -531,23 +536,56 @@ ul.right-side>li {
     cursor: pointer;
 }
 
+.videoREV {
+    width: 326px;
+    padding: 5px 10px;
+    height: 770px;
+    overflow: hidden;
+}
+
+.Prev {
+    width: 300px;
+    height: 20px;
+    background: url('./images/moveup.png') no-repeat center;
+    background-size: 100% 100%;
+    margin-left: 14.5px;
+}
+
+.videoREV .nowChoose {
+    background-color: #808080d4;
+    width: 320px;
+    margin-left: -7px;
+}
+
+.Next {
+    width: 300px;
+    height: 20px;
+    background: url('./images/movedown.png') no-repeat center;
+    background-size: 100% 100%;
+    margin-left: 14.5px;
+}
+
 .video-links {
     margin: 3px;
     border: 1px solid #ccc;
     border-radius: 5px;
     height: 40px;
-    width: 200px;
+    width: 300px;
     background-color: rgba(255, 255, 255, 0.8);
+    transition: width 1s;
+    transition: margin 0.3s;
+    background-color: #8080806e;
 }
 
 .video-links>a {
     text-overflow: ellipsis;
-    width: 200px;
+    width: 100%;
     overflow: hidden;
     display: block;
     white-space: nowrap;
-    font-size: 20px;
-    padding: 5px;
+    font-size: 15px;
+    padding: 10px 5px;
+    color: white;
 }
 
 /*notepad setting*/
@@ -576,4 +614,66 @@ ul.right-side>li {
     top: 450px;
     background: url('./images/downupload.png') no-repeat center;
     background-size: 80%;
+}
+
+.upload-file  {
+    padding: 10px 5px;
+}
+
+.upload-file * {
+    font-size: 18px;
+}
+
+.upload-file>input[type='file'] {
+    width: 500px;
+}
+
+.progress-bars {
+    width: 500px;
+    height: 25px;
+    display: inline-block;
+    border: 1px solid #80808087;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.progress-bars>div {
+    width: 0;
+    color: #fff;
+    background-color: #337ab7;
+    text-align: center;
+    transition: width .6s ease;
+    height: 23px;
+    padding: 1px 0;
+    border-radius: 2px;
+    line-height: 20px;
+}
+
+.form-msg {
+    padding: 5px 15px;
+    background-color: #ffffffc4;
+    border-radius: 10px;
+}
+
+.form-msg>table {
+    width: 100%;
+    text-align: center;
+}
+
+.form-msg>table td {
+    border-top: 2px solid #73737329;
+}
+
+.form-msg>table th:nth-last-child(1),
+.form-msg>table th:nth-last-child(2) {
+    width: 128px;
+    text-align: center;
+}
+
+.form-msg>table th:last-child {
+    width: 113px;
+}
+
+.form-msg>table td:first-child {
+    text-align: left;
 }
